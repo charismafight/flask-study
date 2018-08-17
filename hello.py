@@ -31,4 +31,5 @@ def show_data(table, tttt):
 @app.route('/hello-go')
 def hello_go():
     #test git pass
+    #remember?
     return 'hello go page,cant use /'
