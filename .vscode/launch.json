@@ -55,12 +55,11 @@
             "request": "launch",
             "module": "flask",
             "env": {
-                "FLASK_APP": "${workspaceRoot}/app.py",
-                "FLASK_ENV": "development"
+                "FLASK_APP": "app.py",
             },
             "args": [
-                "run"
-            ]
+                "run",
+            ],
         },
         {
             "name": "Python: Module",

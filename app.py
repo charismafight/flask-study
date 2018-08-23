@@ -1,7 +1,7 @@
-from flask import Flask, url_for, template_rendered
+from flask import Flask, url_for, render_template
 
 app = Flask(__name__)
-app.config['DEBUG'] = True
+
 
 
 @app.route("/")
@@ -19,7 +19,7 @@ def login():
 def hello(name=None):
     print('call hello')
     # g.fuck = 'test fucking g'
-    return template_rendered('hello.html', name=name)
+    return render_template('hello.j2', name=name)
 
 
 @app.route("/user/<userid>")
@@ -55,5 +55,3 @@ def profile(username):
 #     print(url_for('login', next='/'))
 #     print(url_for('profile', username='lee leon'))
 #     print(url_for('hello', username='lee leon'))
-
-
