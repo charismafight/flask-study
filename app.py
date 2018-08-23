@@ -39,8 +39,6 @@ def show_data(table, tttt):
 
 @app.route('/hello-go')
 def hello_go():
-    # test git pass
-    # remember?
     return 'hello go page,cant use /'
 
 
@@ -55,3 +53,6 @@ def profile(username):
 #     print(url_for('login', next='/'))
 #     print(url_for('profile', username='lee leon'))
 #     print(url_for('hello', username='lee leon'))
+
+
+#pass
