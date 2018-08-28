@@ -1,7 +1,6 @@
-from flask import Flask, url_for, render_template
+from flask import Flask, url_for, render_template, request
 
 app = Flask(__name__)
-
 
 
 @app.route("/")
@@ -9,9 +8,27 @@ def index():
     return "this is the index page of app"
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return 'login'
+    err = None
+    if request.method == 'POST':
+        if valid_login(request.form['username'], request.form['password']):
+            return log_the_user_in(request.form['username'])
+        else:
+            err = 'Invalid login info'
+    return render_template('login.html', error=err)
+
+
+def valid_login(name, pwd):
+    if name == 'lee' and pwd == '123':
+        return True
+    else:
+        return False
+
+
+def log_the_user_in(name):
+    print('user {} logged in'.format(name))
+    return render_template('welcome.html', name=name)
 
 
 @app.route("/hello/")
@@ -55,3 +72,11 @@ def profile(username):
 #     print(url_for('hello', username='lee leon'))
 
 
+with app.test_request_context('/hello', method='post'):
+    assert request.path == '/hello'
+    print(request.method)
+    assert request.method == 'POST'
+
+
+# with app.request_context(environ):
+#     assert request.method == 'POST'
