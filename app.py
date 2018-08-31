@@ -37,6 +37,12 @@ def fail_login():
     return ''
 
 
+@app.route('/params')
+def params():
+    p_word = request.args.get('id')
+    return p_word
+
+
 @app.route("/hello/")
 @app.route('/hello/<name>')
 def hello(name=None):
