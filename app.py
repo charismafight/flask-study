@@ -31,6 +31,12 @@ def log_the_user_in(name):
     return render_template('welcome.html', name=name)
 
 
+@app.route('/fail-login')
+def fail_login():
+    fail_att = request.form['name']
+    return ''
+
+
 @app.route("/hello/")
 @app.route('/hello/<name>')
 def hello(name=None):
