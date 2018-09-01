@@ -1,6 +1,8 @@
 from flask import Flask, url_for, render_template, request
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+app.config['file_path']='/home/lee/PycharmProjects/flask-study/files/'
 
 
 @app.route("/")
@@ -41,6 +43,14 @@ def fail_login():
 def params():
     p_word = request.args.get('id')
     return p_word
+
+
+@app.route('/upload', methods=['POST', 'GET'])
+def upload():
+    if request.method == 'POST':
+        f = request.files['my_file']
+        f.save(app.config['file_path'] + secure_filename(f.filename))
+    return render_template('upload.html')
 
 
 @app.route("/hello/")
