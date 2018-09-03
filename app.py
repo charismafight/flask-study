@@ -1,13 +1,31 @@
-from flask import Flask, url_for, render_template, request
+from flask import Flask, url_for, render_template, request, g, make_response, after_this_request
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config['file_path']='/home/lee/PycharmProjects/flask-study/files/'
+app.config['file_path'] = '/home/lee/PycharmProjects/flask-study/files/'
+
+
+@app.before_request
+def set_user_lang():
+    print('before request code running....')
+    language = request.cookies.get('lan')
+
+    if not language:
+        language = 'cn'
+
+        @after_this_request
+        def remember_language(response):
+            print('after request code running request code running....')
+            response.set_cookie('lan', language)
+            return response
+    g.language = language
 
 
 @app.route("/")
 def index():
-    return "this is the index page of app"
+    username = request.cookies.get('name')
+    lan = request.cookies.get('lan')
+    return make_response(render_template('index.html', lan=lan))
 
 
 @app.route('/login', methods=['GET', 'POST'])
