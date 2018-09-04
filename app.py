@@ -1,4 +1,4 @@
-from flask import Flask, url_for, render_template, request, g, make_response, after_this_request
+from flask import Flask, url_for, render_template, request, g, make_response, after_this_request, abort
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
@@ -103,6 +103,10 @@ def hello_go():
 def profile(username):
     return '{}\'s profile'.format(username)
 
+
+@app.route('/error400')
+def error_page():
+    abort(400)
 
 # with app.test_request_context():
 #     print(url_for('index'))
